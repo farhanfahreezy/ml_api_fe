@@ -22,8 +22,8 @@ const SignInPage = () => {
   const form = useForm<SignIn>({
     resolver: zodResolver(SignInSchema),
     defaultValues: {
-      username: "",
-      password: "",
+      username: "otonghyuga",
+      password: "otonghyuga",
     },
   });
 
@@ -40,11 +40,13 @@ const SignInPage = () => {
           localStorage.setItem("name", res.data.name);
           localStorage.setItem("username", res.data.username);
           localStorage.setItem("email", res.data.email);
-          navigate("/");
         })
         .catch((err) => {
           console.log("err");
           throw err.response.data;
+        })
+        .finally(() => {
+          navigate("/");
         }),
       {
         loading: "Loading...",
