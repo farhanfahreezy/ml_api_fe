@@ -3,6 +3,7 @@ import { Gauge, Microscope, ListTodo } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -10,6 +11,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { Button } from "./ui/button";
 
 // Menu items.
 const items = [
@@ -52,6 +54,9 @@ export function MainSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <Button variant={"outline"}>Sign out</Button>
+      </SidebarFooter>
     </Sidebar>
   );
 }
