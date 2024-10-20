@@ -12,6 +12,8 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Button } from "./ui/button";
+import { signout } from "@/api/auth/signout";
+import toast from "react-hot-toast";
 
 // Menu items.
 const items = [
@@ -33,6 +35,11 @@ const items = [
 ];
 
 export function MainSidebar() {
+  const handleSignout = () => {
+    signout();
+    toast.success("Signout success");
+    window.location.href = "/";
+  };
   return (
     <Sidebar>
       <SidebarContent>
@@ -55,7 +62,9 @@ export function MainSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <Button variant={"outline"}>Sign out</Button>
+        <Button variant={"outline"} onClick={handleSignout}>
+          Sign out
+        </Button>
       </SidebarFooter>
     </Sidebar>
   );

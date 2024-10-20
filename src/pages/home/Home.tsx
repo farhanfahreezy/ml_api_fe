@@ -1,5 +1,18 @@
+import { authself } from "@/api/auth/self";
+import { useNavigate } from "react-router-dom";
+
 const Home = () => {
-  return <div>Home</div>;
+  const navigate = useNavigate();
+
+  authself()
+    .then(() => {
+      // Handle the successful response here
+      navigate("/status");
+    })
+    .catch(() => {
+      // Handle the error response here
+      navigate("/auth/sign-in");
+    });
 };
 
 export default Home;
