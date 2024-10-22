@@ -15,7 +15,7 @@
     --secondary: 210 20% 70%; /* Lighter secondary color */
     --secondary-foreground: 210 20% 95%; /* Very light text */
     --muted: 210 20% 50%; /* Muted color */
-    --muted-foreground: 210 20% 95%; /* Light muted text */
+    --muted-foreground: 210 20% 65%; /* Light muted text */
     --accent: 210 20% 60%; /* Accent color */
     --accent-foreground: 210 20% 95%; /* Light text on accent */
     --destructive: 0 84% 60%; /* Red for destructive actions */

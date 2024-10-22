@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { signin } from "@/api/auth/signin";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import AuthLayout from "@/layout/AuthLayout";
 
 const SignInPage = () => {
   const navigate = useNavigate();
@@ -57,56 +58,58 @@ const SignInPage = () => {
   });
 
   return (
-    <div className="w-screen h-screen flex flex-col justify-center items-center">
-      <Form {...form}>
-        <form
-          onSubmit={onSubmit}
-          className="flex flex-col w-full max-w-[400px] gap-5"
-        >
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Username</FormLabel>
-                <FormControl>
-                  <Input placeholder="username" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+    <AuthLayout>
+      <div className="w-screen h-screen flex flex-col justify-center items-center">
+        <Form {...form}>
+          <form
+            onSubmit={onSubmit}
+            className="flex flex-col w-full max-w-[400px] gap-5"
+          >
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Username</FormLabel>
+                  <FormControl>
+                    <Input placeholder="username" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <Input placeholder="password" {...field} type="password" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit" variant={"secondary"}>
-            Submit
-          </Button>
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input placeholder="password" {...field} type="password" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button type="submit" variant={"secondary"}>
+              Submit
+            </Button>
 
-          <div className="w-full text-center text-sm">
-            Don't have an account, yet?{" "}
-            <a
-              href="/auth/sign-up"
-              className=" text-accent hover:text-white transition-all"
-            >
-              Sign-up
-            </a>{" "}
-            here
-          </div>
-        </form>
-      </Form>
-    </div>
+            <div className="w-full text-center text-sm">
+              Don't have an account, yet?{" "}
+              <a
+                href="/auth/sign-up"
+                className=" text-accent hover:text-white transition-all"
+              >
+                Sign-up
+              </a>{" "}
+              here
+            </div>
+          </form>
+        </Form>
+      </div>
+    </AuthLayout>
   );
 };
 
