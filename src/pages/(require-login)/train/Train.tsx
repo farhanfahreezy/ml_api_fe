@@ -9,18 +9,19 @@ import {
 
 import { Algorithm } from "@/enums/algorihtm";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
+
 import useTrain from "./hooks/useTrain";
 import DecisionTreeForm from "./components/DecisionTreeForm";
 import RandomForestForm from "./components/RandomForestForm";
 
 const Train = () => {
-  const [selectedAlgorithm, setSelectedAlgorithm] = useState<Algorithm | null>(
-    null
-  );
-
-  const { decisionTreeForm, randomForestForm, onSubmitDTF, onSubmitRF } =
-    useTrain();
+  const {
+    decisionTreeForm,
+    randomForestForm,
+    onSubmit,
+    selectedAlgorithm,
+    setSelectedAlgorithm,
+  } = useTrain();
 
   return (
     <MainLayout>
@@ -49,12 +50,9 @@ const Train = () => {
           <div className="w-full space-y-2">
             <Label className="ml-2">Hyperparameter</Label>
             {selectedAlgorithm === Algorithm.DecisionTree ? (
-              <DecisionTreeForm
-                form={decisionTreeForm}
-                onSubmit={onSubmitDTF}
-              />
+              <DecisionTreeForm form={decisionTreeForm} onSubmit={onSubmit} />
             ) : selectedAlgorithm === Algorithm.RandomForest ? (
-              <RandomForestForm form={randomForestForm} onSubmit={onSubmitRF} />
+              <RandomForestForm form={randomForestForm} onSubmit={onSubmit} />
             ) : (
               <div>not implemented</div>
             )}

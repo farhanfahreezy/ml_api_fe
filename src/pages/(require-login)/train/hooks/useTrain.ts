@@ -1,11 +1,20 @@
+import { postTrain } from "@/api/train/train";
+import { Algorithm } from "@/enums/algorihtm";
 import { DecisionTreeParameterOptimizationSchema } from "@/schema/decisiontree_hyperparameter";
 import { RandomForestParameterOptimizationSchema } from "@/schema/randomforest_hyperparameter";
 import { DecisionTreeParameterOptimization } from "@/types/decisitontree_hyperparameter";
 import { RandomForestParameterOptimization } from "@/types/randomforest_hyperparameter";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const useTrain = () => {
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState<Algorithm | null>(
+    null
+  );
+
   const decisionTreeForm = useForm<DecisionTreeParameterOptimization>({
     resolver: zodResolver(DecisionTreeParameterOptimizationSchema),
     defaultValues: {
@@ -50,15 +59,40 @@ const useTrain = () => {
     },
   });
 
-  const onSubmitDTF = (data: DecisionTreeParameterOptimization) => {
-    console.log("Submitted Data:", data);
+  const { mutateAsync: trainMutation } = useMutation({
+    mutationFn: postTrain,
+  });
+
+  const onSubmit = (
+    data: DecisionTreeParameterOptimization | RandomForestParameterOptimization
+  ) => {
+    const promise = trainMutation({
+      algorithm: selectedAlgorithm ?? "",
+      param_grid: data,
+    });
+    toast.promise(
+      promise
+        .then((res) => {
+          console.log("res", res);
+        })
+        .catch((err) => {
+          console.log("err", err);
+        }),
+      {
+        loading: "Loading...",
+        success: "Train complete",
+        error: (err) => `${err.message}`,
+      }
+    );
   };
 
-  const onSubmitRF = (data: RandomForestParameterOptimization) => {
-    console.log("Submitted Data", data);
+  return {
+    decisionTreeForm,
+    randomForestForm,
+    onSubmit,
+    selectedAlgorithm,
+    setSelectedAlgorithm,
   };
-
-  return { decisionTreeForm, randomForestForm, onSubmitDTF, onSubmitRF };
 };
 
 export default useTrain;
