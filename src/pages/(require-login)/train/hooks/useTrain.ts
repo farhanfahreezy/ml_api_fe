@@ -4,6 +4,7 @@ import { DecisionTreeParameterOptimizationSchema } from "@/schema/decisiontree_h
 import { RandomForestParameterOptimizationSchema } from "@/schema/randomforest_hyperparameter";
 import { DecisionTreeParameterOptimization } from "@/types/decisitontree_hyperparameter";
 import { RandomForestParameterOptimization } from "@/types/randomforest_hyperparameter";
+import { TrainResponse } from "@/types/train";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
@@ -14,6 +15,9 @@ const useTrain = () => {
   const [selectedAlgorithm, setSelectedAlgorithm] = useState<Algorithm | null>(
     null
   );
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [trainResponse, setTrainResponse] = useState<TrainResponse>();
 
   const decisionTreeForm = useForm<DecisionTreeParameterOptimization>({
     resolver: zodResolver(DecisionTreeParameterOptimizationSchema),
@@ -73,7 +77,8 @@ const useTrain = () => {
     toast.promise(
       promise
         .then((res) => {
-          console.log("res", res);
+          setTrainResponse(res.data);
+          setIsDialogOpen(true);
         })
         .catch((err) => {
           console.log("err", err);
@@ -92,6 +97,9 @@ const useTrain = () => {
     onSubmit,
     selectedAlgorithm,
     setSelectedAlgorithm,
+    isDialogOpen,
+    setIsDialogOpen,
+    trainResponse,
   };
 };
 
