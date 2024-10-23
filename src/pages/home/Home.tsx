@@ -13,6 +13,8 @@ const Home = () => {
       // Handle the error response here
       navigate("/auth/sign-in");
     });
+
+  return null;
 };
 
 export default Home;
